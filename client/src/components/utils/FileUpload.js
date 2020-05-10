@@ -15,11 +15,19 @@ const FileUpload = () => {
     axios.post(`/api/product/image`, formData, config).then((res) => {
       if (res.data.success) {
         setImages([...images, res.data.filePath]);
-        console.log(res.data);
       } else {
         alert("파일을 저장하는데 실패했습니다.");
       }
     });
+  };
+
+  const deleteHandler = (image) => {
+    const currnetIndex = images.indexOf(image);
+
+    let newImages = [...images];
+    newImages.splice(currnetIndex, 1);
+
+    setImages(newImages);
   };
   return (
     <div style={{ display: "flex", justifyContent: "space-between" }}>
@@ -50,7 +58,7 @@ const FileUpload = () => {
         }}
       >
         {images.map((image, index) => (
-          <div key={index}>
+          <div key={index} onClick={() => deleteHandler(image)}>
             <img
               style={{ maxWidth: "300px", width: "300px", height: "240px" }}
               src={`http://localhost:5000/${image}`}
