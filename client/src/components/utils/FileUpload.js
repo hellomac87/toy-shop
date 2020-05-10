@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import Dropzone from "react-dropzone";
 import { Icon } from "antd";
 import axios from "axios";
 
 const FileUpload = () => {
+  const [images, setImages] = useState([]);
   const dropHanlder = (files) => {
     let formData = new FormData();
     const config = {
@@ -12,8 +13,9 @@ const FileUpload = () => {
     formData.append("file", files[0]);
 
     axios.post(`/api/product/image`, formData, config).then((res) => {
-      console.log(res);
       if (res.data.success) {
+        setImages([...images, res.data.filePath]);
+        console.log(res.data);
       } else {
         alert("파일을 저장하는데 실패했습니다.");
       }
@@ -39,6 +41,23 @@ const FileUpload = () => {
           </div>
         )}
       </Dropzone>
+      <div
+        style={{
+          display: "flex",
+          width: "350px",
+          height: "240px",
+          overflowX: "scroll",
+        }}
+      >
+        {images.map((image, index) => (
+          <div key={index}>
+            <img
+              style={{ maxWidth: "300px", width: "300px", height: "240px" }}
+              src={`http://localhost:5000/${image}`}
+            />
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
