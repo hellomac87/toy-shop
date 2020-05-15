@@ -5,9 +5,16 @@ import Meta from "antd/lib/card/Meta";
 import ImageSlider from "../../utils/ImageSlider";
 function LandingPage() {
   const [products, setProducts] = useState([]);
+  const [skip, setSkip] = useState(0);
+  const [limit, setLimit] = useState(8);
 
   useEffect(() => {
-    axios.post("/api/product/products").then((res) => {
+    let body = {
+      skip,
+      limit,
+    };
+
+    axios.post(`/api/product/products`, body).then((res) => {
       if (res.data.success) {
         console.log(res.data.productInfo);
         setProducts(res.data.productInfo);
@@ -16,6 +23,8 @@ function LandingPage() {
       }
     });
   }, []);
+
+  const loadMoreHandler = () => {};
 
   const renderCards = products.map((product, index) => {
     console.log(product);
@@ -49,7 +58,7 @@ function LandingPage() {
       <Row gutter={[16, 16]}>{renderCards}</Row>
 
       <div style={{ justifyContent: "center" }}>
-        <button>더보기</button>
+        <button onClick={loadMoreHandler}>더보기</button>
       </div>
     </div>
   );
