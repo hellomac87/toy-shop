@@ -7,24 +7,44 @@ function LandingPage() {
   const [products, setProducts] = useState([]);
   const [skip, setSkip] = useState(0);
   const [limit, setLimit] = useState(8);
+  const [postSize, setPostSize] = useState(8);
 
   useEffect(() => {
     let body = {
       skip,
       limit,
     };
+    getProducts(body);
+  }, []);
 
+  const getProducts = (body) => {
     axios.post(`/api/product/products`, body).then((res) => {
       if (res.data.success) {
         console.log(res.data.productInfo);
-        setProducts(res.data.productInfo);
+        if (body.loadMore) {
+          setProducts([...products, ...res.data.productInfo]);
+        } else {
+          setProducts(res.data.productInfo);
+        }
+        setPostSize(res.data.postSize);
       } else {
         alert("상품들을 가져오는데 실패했습니다.");
       }
     });
-  }, []);
+  };
 
-  const loadMoreHandler = () => {};
+  const loadMoreHandler = () => {
+    let newSkip = skip + limit;
+
+    let body = {
+      skip: newSkip,
+      limit,
+      loadMore: true,
+    };
+
+    getProducts(body);
+    setSkip(newSkip);
+  };
 
   const renderCards = products.map((product, index) => {
     console.log(product);
@@ -57,9 +77,11 @@ function LandingPage() {
       {/* Cards */}
       <Row gutter={[16, 16]}>{renderCards}</Row>
 
-      <div style={{ justifyContent: "center" }}>
-        <button onClick={loadMoreHandler}>더보기</button>
-      </div>
+      {postSize >= limit && (
+        <div style={{ justifyContent: "center" }}>
+          <button onClick={loadMoreHandler}>더보기</button>
+        </div>
+      )}
     </div>
   );
 }
