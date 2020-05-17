@@ -23,7 +23,6 @@ function LandingPage() {
   const getProducts = (body) => {
     axios.post(`/api/product/products`, body).then((res) => {
       if (res.data.success) {
-        console.log(res.data.productInfo);
         if (body.loadMore) {
           setProducts([...products, ...res.data.productInfo]);
         } else {
@@ -60,6 +59,8 @@ function LandingPage() {
     );
   });
 
+  const handleFilters = () => {};
+
   return (
     <div
       style={{
@@ -74,7 +75,10 @@ function LandingPage() {
       </div>
       {/* Filter */}
       {/* CheckBox */}
-      <Checkbox list={continents} />
+      <Checkbox
+        list={continents}
+        handleFilters={(filter) => handleFilters(filters, "continents")}
+      />
       {/* RadioBox */}
 
       {/* Search */}
