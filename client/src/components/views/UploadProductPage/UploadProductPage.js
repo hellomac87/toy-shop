@@ -54,7 +54,7 @@ function UploadProductPage({ user, history }) {
       title,
       description,
       price,
-      continent,
+      continents: continent,
       images,
     };
     console.log(body);

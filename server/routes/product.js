@@ -44,12 +44,23 @@ router.post("/", (req, res) => {
 });
 
 router.post("/products", (req, res) => {
-  let { skip, limit } = req.body;
+  let { skip, limit, filters } = req.body;
 
   limit = limit ? parseInt(limit) : 20;
   skip = skip ? parseInt(skip) : 0;
+
+  let findArgs = {};
+
+  for (let key in filters) {
+    if (filters[key].length > 0) {
+      findArgs[key] = filters[key];
+    }
+  }
+
+  console.log("findArgs", findArgs);
+
   // product collection 에 들어있는 모든 상품정보 가져오기
-  Product.find()
+  Product.find(findArgs)
     .populate("writer") // writer 의 정보를 가져오기 위해
     .skip(skip)
     .limit(limit)
