@@ -53,7 +53,15 @@ router.post("/products", (req, res) => {
 
   for (let key in filters) {
     if (filters[key].length > 0) {
-      findArgs[key] = filters[key];
+      console.log("key", key);
+      if (key === "price") {
+        findArgs[key] = {
+          $gte: req.body.filters[key][0], // greater than equal 크거나 같고
+          $lte: req.body.filters[key][1], // less than equal 작거나 같고
+        };
+      } else {
+        findArgs[key] = filters[key];
+      }
     }
   }
 
