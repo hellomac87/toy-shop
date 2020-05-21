@@ -5,6 +5,7 @@ import Meta from "antd/lib/card/Meta";
 import ImageSlider from "../../utils/ImageSlider";
 import Checkbox from "./Sections/Checkbox";
 import RadioBox from "./Sections/RadioBox";
+import SearchFeature from "./Sections/SearchFeature";
 import { continents, price } from "./Sections/Datas";
 
 function LandingPage() {
@@ -12,10 +13,12 @@ function LandingPage() {
   const [skip, setSkip] = useState(0);
   const [limit, setLimit] = useState(8);
   const [postSize, setPostSize] = useState(8);
+
   const [Filters, setFilters] = useState({
     continents: [],
     price: [],
   });
+  const [SearchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     let body = {
@@ -98,6 +101,10 @@ function LandingPage() {
     setFilters(newFilters);
   };
 
+  const updateSearchTerm = (newSearchTerm) => {
+    setSearchTerm(newSearchTerm);
+  };
+
   return (
     <div
       style={{
@@ -129,6 +136,17 @@ function LandingPage() {
       </Row>
 
       {/* Search */}
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "flex-end",
+          margin: "1rem auto",
+        }}
+      >
+        <SearchFeature refreshFuction={updateSearchTerm} />
+      </div>
+
       {/* Cards */}
       <Row gutter={[16, 16]}>{renderCards}</Row>
       {postSize >= limit && (
