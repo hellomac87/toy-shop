@@ -44,16 +44,16 @@ router.post("/", (req, res) => {
 });
 
 router.post("/products", (req, res) => {
-  let { skip, limit, filters } = req.body;
+  let { skip, limit, filters, searchTerm } = req.body;
 
   limit = limit ? parseInt(limit) : 20;
   skip = skip ? parseInt(skip) : 0;
+  let term = searchTerm;
 
   let findArgs = {};
 
   for (let key in filters) {
     if (filters[key].length > 0) {
-      console.log("key", key);
       if (key === "price") {
         findArgs[key] = {
           $gte: req.body.filters[key][0], // greater than equal 크거나 같고
@@ -67,17 +67,32 @@ router.post("/products", (req, res) => {
 
   console.log("findArgs", findArgs);
 
-  // product collection 에 들어있는 모든 상품정보 가져오기
-  Product.find(findArgs)
-    .populate("writer") // writer 의 정보를 가져오기 위해
-    .skip(skip)
-    .limit(limit)
-    .exec((err, productInfo) => {
-      if (err) return res.status(400).json({ success: false, err });
-      return res
-        .status(200)
-        .json({ success: true, productInfo, postSize: productInfo.length });
-    });
+  if (term) {
+    // product collection 에 들어있는 모든 상품정보 가져오기
+    Product.find(findArgs)
+      .find({ $text: { $search: term } })
+      .populate("writer") // writer 의 정보를 가져오기 위해
+      .skip(skip)
+      .limit(limit)
+      .exec((err, productInfo) => {
+        if (err) return res.status(400).json({ success: false, err });
+        return res
+          .status(200)
+          .json({ success: true, productInfo, postSize: productInfo.length });
+      });
+  } else {
+    // product collection 에 들어있는 모든 상품정보 가져오기
+    Product.find(findArgs)
+      .populate("writer") // writer 의 정보를 가져오기 위해
+      .skip(skip)
+      .limit(limit)
+      .exec((err, productInfo) => {
+        if (err) return res.status(400).json({ success: false, err });
+        return res
+          .status(200)
+          .json({ success: true, productInfo, postSize: productInfo.length });
+      });
+  }
 });
 
 module.exports = router;
