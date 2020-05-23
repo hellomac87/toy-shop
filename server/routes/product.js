@@ -95,4 +95,20 @@ router.post("/products", (req, res) => {
   }
 });
 
+router.get("/product_by_id", (req, res) => {
+  let type = req.query.type;
+  let productId = req.query.id;
+
+  // product id를 이용해서 db에서 가져옴
+
+  Product.find({ _id: productId })
+    .populate("writer")
+    .exec((err, product) => {
+      if (err) return res.status(400).send(err);
+      return res.status(200).json({ success: true, product });
+    });
+});
+
+// /api/product/product_by_id?id=${productId}&type=single
+
 module.exports = router;

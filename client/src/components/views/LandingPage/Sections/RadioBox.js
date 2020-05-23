@@ -19,8 +19,8 @@ function RadioBox({ list, handleFilters }) {
     handleFilters(e.target.value);
   };
   return (
-    <Collapse defaultActiveKey={["1"]}>
-      <Panel header="Continent" key="1">
+    <Collapse defaultActiveKey={["0"]}>
+      <Panel header="Price" key="1">
         <Radio.Group onChange={handleChange} value={value}>
           {renderRadioBox()}
         </Radio.Group>
