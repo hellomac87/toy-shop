@@ -17,7 +17,7 @@ function ProductImage({ detail }) {
       setImages(images);
     }
   }, [detail]);
-
+  // so tired...
   return (
     <div>
       <ImageGallery items={images} />
