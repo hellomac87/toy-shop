@@ -9,11 +9,7 @@ function ProductInfo({ detail }) {
   const clickHander = () => {
     // 필요한 정보를 카트 필드에 넣어준다.
 
-    dispatch(
-      addToCart({
-        id: detail._id,
-      })
-    );
+    dispatch(addToCart(detail._id));
   };
   return (
     <div>
