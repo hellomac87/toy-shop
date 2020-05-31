@@ -97,18 +97,20 @@ router.post("/products", (req, res) => {
 
 router.get("/product_by_id", (req, res) => {
   let type = req.query.type;
-  let productId = req.query.id;
+  let productIds = req.query.id;
 
+  if (type === "array") {
+    let ids = req.query.id.split(",");
+    productIds = ids.map((item) => item);
+  }
   // product id를 이용해서 db에서 가져옴
 
-  Product.find({ _id: productId })
+  Product.find({ _id: { $in: productIds } })
     .populate("writer")
     .exec((err, product) => {
       if (err) return res.status(400).send(err);
       return res.status(200).json({ success: true, product });
     });
 });
-
-// /api/product/product_by_id?id=${productId}&type=single
 
 module.exports = router;
