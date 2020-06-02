@@ -95,6 +95,8 @@ router.post("/products", (req, res) => {
   }
 });
 
+// so tired...
+
 router.get("/product_by_id", (req, res) => {
   let type = req.query.type;
   let productIds = req.query.id;
