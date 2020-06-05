@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { getCartItems } from "../../../_actions/user_actions";
 import UserCardBlock from "./Sections/UserCardBlock";
 function CartPage() {
-  const { userData } = useSelector((state) => state.user);
+  const { userData, cartDetail } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -22,7 +22,7 @@ function CartPage() {
     <div style={{ width: "85%", margin: "3rem auto" }}>
       <h1>My cart</h1>
       <div>
-        <UserCardBlock products={userData && userData.cart} />
+        <UserCardBlock products={cartDetail && cartDetail.product} />
       </div>
     </div>
   );

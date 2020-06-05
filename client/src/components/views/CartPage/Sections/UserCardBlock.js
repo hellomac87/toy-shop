@@ -8,18 +8,18 @@ const UserCardBlock = ({ products }) => {
     }
   };
   // tired
-  console.log(products);
+
   const renderItems = () => {
     return (
       products &&
       products.map((product) => {
         return (
-          <tr>
+          <tr key={product._id}>
             <td>
               <img
                 style={{ width: "70px" }}
                 alt="product"
-                // src={renderCartImage(product.images)}
+                src={renderCartImage(product.images)}
               />
             </td>
             <td>{product.quantity}</td>
