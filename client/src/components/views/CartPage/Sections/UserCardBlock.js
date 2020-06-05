@@ -8,7 +8,7 @@ const UserCardBlock = ({ products }) => {
     }
   };
   // tired
-
+  console.log(products);
   const renderItems = () => {
     return (
       products &&

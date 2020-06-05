@@ -26,6 +26,7 @@ export default function (state = {}, action) {
         },
       };
     case GET_CART_ITEMS:
+      console.log(action.payload);
       return {
         ...state,
         cartDetail: action.payload,
