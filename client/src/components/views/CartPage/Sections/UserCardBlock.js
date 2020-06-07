@@ -8,6 +8,7 @@ const UserCardBlock = ({ products }) => {
     }
   };
   // tired 2
+  // rest day
 
   const renderItems = () => {
     return (
