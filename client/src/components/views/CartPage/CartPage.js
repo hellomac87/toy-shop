@@ -22,7 +22,7 @@ function CartPage() {
     <div style={{ width: "85%", margin: "3rem auto" }}>
       <h1>My cart</h1>
       <div>
-        <UserCardBlock products={cartDetail && cartDetail.product} />
+        <UserCardBlock products={cartDetail} />
       </div>
     </div>
   );
