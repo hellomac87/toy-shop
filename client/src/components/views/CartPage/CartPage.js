@@ -5,7 +5,7 @@ import UserCardBlock from "./Sections/UserCardBlock";
 function CartPage() {
   const { userData, cartDetail } = useSelector((state) => state.user);
   const dispatch = useDispatch();
-
+  // nope
   useEffect(() => {
     let cartItem = [];
     if (userData && userData.cart) {
