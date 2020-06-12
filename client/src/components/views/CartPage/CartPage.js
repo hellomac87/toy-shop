@@ -41,6 +41,7 @@ function CartPage() {
       <div style={{ marginTop: "3rem" }}>
         <div>Total Price : {total}</div>
         {/* nolja */}
+        {/* nolja */}
       </div>
     </div>
   );
