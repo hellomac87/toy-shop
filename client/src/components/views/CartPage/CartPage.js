@@ -42,6 +42,7 @@ function CartPage() {
         <div>Total Price : {total}</div>
         {/* nolja */}
         {/* nolja */}
+        {/* nolja */}
       </div>
     </div>
   );
