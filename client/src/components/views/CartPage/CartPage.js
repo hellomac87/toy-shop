@@ -45,6 +45,7 @@ function CartPage() {
         {/* nolja */}
         {/* nolja */}
         {/* nolja */}
+        {/* nolja */}
       </div>
     </div>
   );
