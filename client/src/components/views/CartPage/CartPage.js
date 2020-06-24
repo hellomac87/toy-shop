@@ -53,6 +53,7 @@ function CartPage() {
         {/* nolja */}
         {/* nolja */}
         {/* need something fun developing */}
+        {/* typescript go */}
       </div>
     </div>
   );
