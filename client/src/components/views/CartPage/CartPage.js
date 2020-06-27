@@ -55,6 +55,7 @@ function CartPage() {
         {/* need something fun developing */}
         {/* typescript go */}
         {/* typescript go */}
+        {/* typescript go */}
       </div>
     </div>
   );
